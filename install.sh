@@ -3,8 +3,10 @@
 function aur {
 	cd /tmp
 	git clone https://aur.archlinux.org/$1.git
+	chown -R $username:users /tmp/$1
+	chown -R $username:users /tmp/$1/PKGBUILD
 	cd $1
-	echo $pass | makepkg -si --noconfirm
+	echo $pass | sudo -u $username makepkg -si --noconfirm
 	cd ..
 	rm -rf $1
 }
@@ -59,9 +61,17 @@ esac
 echo '--------------------------------------------------'
 echo '|           Установка Display Manager            |'
 echo '--------------------------------------------------'
-# раскомментировать блок SDDM или LXDM
+# раскомментировать блок SDDM или LigtDM
+#echo '>> Установка LightDM'
+#pacman -Sy lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm
+#cd /etc/lightdm/
+#wget 'https://raw.githubusercontent.com/like913/arch-install/master/config/lightdm/lightdm.conf'
+#wget 'https://raw.githubusercontent.com/like913/arch-install/master/config/lightdm/display_setup.sh'
+#chmod +x display_setup.sh
+#cd ~/
+
 echo '>> Установка sddm'
-#echo $pass | sudo pacman -Sy sddm sddm-kcm --noconfirm
+echo $pass | sudo pacman -Sy sddm sddm-kcm --noconfirm
 echo $pass | sudo systemctl enable sddm
 
 #echo '>> Настройка SDDM для xrandr'
@@ -70,7 +80,7 @@ echo $pass | sudo systemctl enable sddm
 #echo 'xrandr --dpi 75' >> /usr/share/sddm/scripts/Xsetup
 
 echo '>> Установка настройки сети'
-#echo $pass | sudo pacman -Sy networkmanager samba --noconfirm
+echo $pass | sudo pacman -Sy networkmanager samba --noconfirm
 echo $pass | sudo systemctl enable NetworkManager
 
 echo '--------------------------------------------------'
@@ -118,9 +128,9 @@ aur pacaur
 
 mkinitcpio -p linux
 
-echo '>> Установка octopi'
-aur alpm_octopi_utils
-aur octopi
+#echo '>> Установка octopi'
+#aur alpm_octopi_utils
+#aur octopi
 
 #echo '>> Установка Double Commander'
 ##echo $pass | sudo pacman -S doublecmd-qt5 --noconfirm
@@ -133,7 +143,7 @@ aur octopi
 ##echo $pass | sudo pacman -Sy libreoffice-fresh libreoffice-fresh-ru --noconfirm
 
 echo '>> Установка firefox'
-#echo $pass | sudo pacman -Sy firefox firefox-i18n-ru flashplugin --noconfirm
+echo $pass | sudo pacman -Sy firefox firefox-i18n-ru flashplugin --noconfirm
 
 #echo '>> Установка почтового клиента'
 ##echo $pass | sudo pacman -Sy thunderbird thunderbird-i18n-ru --noconfirm
