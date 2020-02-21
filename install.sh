@@ -68,6 +68,7 @@ echo '--------------------------------------------------'
 #wget 'https://raw.githubusercontent.com/like913/arch-install/master/config/lightdm/lightdm.conf'
 #wget 'https://raw.githubusercontent.com/like913/arch-install/master/config/lightdm/display_setup.sh'
 #chmod +x display_setup.sh
+#systemctl enable lightdm.service
 #cd ~/
 
 echo '>> Установка sddm'
@@ -86,6 +87,9 @@ systemctl enable NetworkManager
 echo '--------------------------------------------------'
 echo '|         Установка Desktop Environment          |'
 echo '--------------------------------------------------'
+#echo '>> Gnome'
+#pacman -Sy gnome gnome-shell gnome-extra --noconfirm
+
 #echo '>> Cinnamon'
 ##pacman -Sy cinnamon cinnamon-translations --noconfirm
 ##pacman -Sy gnomme-terminal
