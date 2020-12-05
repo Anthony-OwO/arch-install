@@ -6,37 +6,9 @@ wget https://raw.githubusercontent.com/like913/arch-install/master/ru.sh
 sh ./ru.sh
 
 # Загрузка скриптов
-case $1 in
-	vb)
-		wget https://raw.githubusercontent.com/like913/arch-install/vb/install
-		wget https://raw.githubusercontent.com/like913/arch-install/vb/chroot
-		wget https://raw.githubusercontent.com/like913/arch-install/vb/install.sh
-		;;
-	nv) 
-		wget https://raw.githubusercontent.com/like913/arch-install/e5-576g/install
-		wget https://raw.githubusercontent.com/like913/arch-install/e5-576g/chroot
-		wget https://raw.githubusercontent.com/like913/arch-install/e5-576g/install.sh
-		;;
-	mount)
-		wget https://raw.githubusercontent.com/like913/arch-install/master/arch-mount.sh
-		;;
-	-h)
-		echo 'wget-arch-install [vb|nv]'
-		echo '    Загрузчик скриптов для установки Arch Linux'
-		echo
-		echo '        Поумолчанию загружается универсальная конфигурация'
-		echo 'vb    - Конфигурация для VirtualBox  с диском 40Гб'
-		echo 'nv    - Конфигурация для новых ноутбуков (intel+nvidia) и HDD 1Тб'
-		echo 'mount - Подключить разделы'
-		echo
-		;;
-	*)
-		wget https://raw.githubusercontent.com/like913/arch-install/master/install
-		wget https://raw.githubusercontent.com/like913/arch-install/master/chroot
-		wget https://raw.githubusercontent.com/like913/arch-install/master/install.sh
-		;;
-esac
-
+wget https://notabug.org/like_913/arch-install/raw/master/install
+wget https://notabug.org/like_913/arch-install/raw/master/chroot
+wget https://notabug.org/like_913/arch-install/raw/master/install.sh
 
 # Назначение прав на исполнениие кода
 chmod +x install

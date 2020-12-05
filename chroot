@@ -32,8 +32,8 @@ loadkeys ru
 setfont cyr-sun16
 echo -e 'KEYMAP=ru\nFONT=cyr-sun16\n' > /etc/vconsole.conf
 
-sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen
-sed -i 's/#ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/g' /etc/locale.gen
+sed -i 's/#en_US.U/en_US.U/g' /etc/locale.gen
+sed -i 's/#ru_RU.U/ru_RU.U/g' /etc/locale.gen
 locale-gen
 
 echo -e 'LANG=ru_RU.UTF-8' > /etc/locale.conf
@@ -73,9 +73,9 @@ mkinitcpio -p linux
 
 echo '>> Настройка прав администратора'
 # Запрашивать пароль при выполненинии sudo
-echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
+#echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
 # Выполнять sudo без запроса пароля
-#echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 chown -R $username:users /home/$username/
 
 echo '>>  Настройка pacman'
@@ -120,7 +120,7 @@ case $bootmgr in
 				;;
 		esac
 		echo 'initrd /initramfs-linux.img' >> /boot/loader/entries/arch.conf
-		echo 'options root=/dev/sda3 rw' >> /boot/loader/entries/arch.conf          
+		echo 'options root=/dev/vda3 rw' >> /boot/loader/entries/arch.conf          
 		;;
 	grub) 
 		echo 'установка GRUB'
@@ -151,13 +151,9 @@ echo 'source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlight
 
 cd /root/
 wget 'https://raw.githubusercontent.com/like913/arch-install/master/config/.zshrc'
-sed -i "s/zstyle :compinstall filename '/home/user/.zshrc'/zstyle :compinstall filename '/root/.zshrc'/g" .zshrc
-echo "PROMPT='%F{red}%n%f@%F{248}%m%f %F{white}%B%~%b%f # '" >> .zshrc
 
 cd /home/$username/
 wget 'https://raw.githubusercontent.com/like913/arch-install/master/config/.zshrc'
-sed -i "s/zstyle :compinstall filename '/home/user/.zshrc'/zstyle :compinstall filename '/home/$username/.zshrc'/g" .zshrc
-echo "PROMPT='%F{blue}%n%f@%F{248}%m%f %F{white}%B%~%b%f # '" >> .zshrc
 chown -R $username:users .zshrc
 
 echo '--------------------------------------------------------------------------------'
