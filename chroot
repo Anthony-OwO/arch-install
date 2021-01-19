@@ -157,7 +157,7 @@ chown -R $username:users .zshrc
 echo '--------------------------------------------------------------------------------'
 echo '|                    Установка пользовательских приложений                     |'
 echo '--------------------------------------------------------------------------------'
-sh /home/$username/install.sh $pass
+sh /home/$username/install.sh $username $pass
 
 echo '>> Отчистка диска'
 pacman -Scc --noconfirm

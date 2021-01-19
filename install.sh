@@ -1,12 +1,15 @@
 #!/bin/bash
 
+username=$0
+pass=$1
+
 function aur {
 	cd /tmp
 	git clone https://aur.archlinux.org/$1.git
 	chown -R $username:users /tmp/$1
 	chown -R $username:users /tmp/$1/PKGBUILD
 	cd $1
-	-u $username makepkg -si --noconfirm
+	( echo $pass ) | -u $username makepkg -si --noconfirm
 	cd ..
 	rm -rf $1
 }
@@ -52,7 +55,7 @@ cd /etc/X11/xorg.conf.d/
 ## sudo nvidia-xconfig --prime необходимо для конфигурирования драйвера в совместимом режиме с картой intel
 
 echo '>> Установка настройки сети'
-pacman -Sy networkmanager samba --noconfirm
+pacman -Sy networkmanager --noconfirm #samba --noconfirm
 systemctl enable NetworkManager
 
 #echo '>> Bluetooth pulseaudio и alsa поддержка звука'
