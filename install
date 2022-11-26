@@ -39,12 +39,12 @@ echo 'size=9G,   type=83' | sfdisk -a /dev/sda #/
 sleep $sleep
 #echo 'size=60G,  type=EBD0A0A2-B9E5-4433-87C0-68B6B72699C7' | sfdisk -a /dev/vda #/mnt/win
 
-echo ">> Форматирование разделов"
+echo ">> format disk"
 echo 'y' | mkfs.ext4 /dev/sda1 -L Arch
 sleep $sleep
 #echo 'y' | mkfs.ntfs -Q /dev/sda5 -L win
 
-echo ">> Подключение разделов"
+echo ">> mount disk"
 mount /dev/sda1 /mnt
 #mkdir -p /mnt/mnt/win
 #mount /dev/sda4 /mnt/mnt/win
@@ -66,7 +66,7 @@ mkdir -p /mnt/home/$username/
 cp -f install.sh /mnt/home/$username/
 sleep $sleep
 
-echo ">> Установка"
+echo ">> install"
 arch-chroot /mnt sh -c "$(cat chroot)" $username $hostname $pass
 sleep $sleep
 
@@ -75,4 +75,4 @@ echo '|                 reboot                         |'
 echo '--------------------------------------------------'
 echo '>> reboot'
 umount -R /mnt/
-reboot
+#reboot
