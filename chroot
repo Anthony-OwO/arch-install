@@ -9,17 +9,17 @@ pass=$2
 
 #   Разблокировка и обновление x32 библиотек'
 # 1 -установить, 0 -не устанавливать
-x86=0
+x86=1
 
 #   Наcтройка загрузчика
 # efi     - установка и настройка только UEFI загрузчика
 # grub    - установка и настройка grub без UEFI
 # efigrub - установка и настройка grub с поддержкой UEFI
-bootmgr=efi
+bootmgr=dos
 
 #   Установка поддержки микрокода для процессоров
 # amd, intel
-ucode=intel
+ucode=amd
 
 echo '--------------------------------------------------------------------------------'
 echo ' Install Arch Linux '$username'@'$hostname
@@ -34,6 +34,7 @@ echo -e 'KEYMAP=ru\nFONT=cyr-sun16\n' > /etc/vconsole.conf
 
 sed -i 's/#en_US.U/en_US.U/g' /etc/locale.gen
 sed -i 's/#ru_RU.U/ru_RU.U/g' /etc/locale.gen
+sed -i 's/#be_BY.U/be_BY.U/g' /etc/locale.gen
 locale-gen
 
 echo -e 'LANG=ru_RU.UTF-8' > /etc/locale.conf
@@ -72,8 +73,8 @@ echo '>> Собираем RAM linux'
 mkinitcpio -p linux
 
 echo '>> Настройка прав администратора'
-# Запрашивать пароль при выполненинии sudo
-#echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
+Запрашивать пароль при выполненинии sudo
+echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
 # Выполнять sudo без запроса пароля
 echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 chown -R $username:users /home/$username/
