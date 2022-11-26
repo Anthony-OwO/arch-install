@@ -33,7 +33,7 @@ echo '--------------------------------------------------'
 #   5                                      Расширенный раздел для MBR
 
 echo ">> Разметка диска"
-echo 'label: dos' | sfdisk /dev/vda
+echo 'label: dos' | sfdisk /devsda
 sleep $sleep
 echo 'size=100%G,   type=83' | sfdisk -a /dev/sda #/
 sleep $sleep
