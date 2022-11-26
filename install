@@ -3,10 +3,10 @@
 echo '--------------------------------------------------'
 echo '|                Config Install                  |'
 echo '--------------------------------------------------'
-username="user"
-hostname="VIRTUAL"
-pass='123'
-sleep=5
+username="anthony"
+hostname="arch-linux"
+pass='5576'
+sleep=8
 
 echo '--------------------------------------------------'
 echo '|              Install Arch Linux                |'
@@ -14,7 +14,7 @@ echo '--------------------------------------------------'
 echo 'Install Arch Linux '$username'@'$hostname
 echo '--------------------------------------------------'
 
-echo "Server = http://mirror.yandex.ru/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
+echo -e "Server = http://ftp.byfly.by/pub/archlinux/\$repo/os/\$arch \nServer = http://mirror.datacenter.by/pub/archlinux/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist
 pacman -Sy sed --noconfirm
 
 echo -e "\n"
@@ -33,36 +33,19 @@ echo '--------------------------------------------------'
 #   5                                      Расширенный раздел для MBR
 
 echo ">> Разметка диска"
-echo 'label: gpt' | sfdisk /dev/vda
+echo 'label: dos' | sfdisk /dev/vda
 sleep $sleep
-echo 'size=2G,   type=0657FD6D-A4AB-43C4-84E5-0933C84B4F4F' | sfdisk -a /dev/vda #swap
-sleep $sleep
-echo 'size=100M, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B' | sfdisk -a /dev/vda #/boot
-sleep $sleep
-echo 'size=15G,  type=4F68BCE3-E8CD-4DB1-96E7-FBCAF984B709' | sfdisk -a /dev/vda #/
-sleep $sleep
-echo 'size=10G,  type=933AC7E1-2EB4-4F13-B844-0E14E2AEF915' | sfdisk -a /dev/vda #/home
+echo 'size=100%G,   type=83' | sfdisk -a /dev/sda #/
 sleep $sleep
 #echo 'size=60G,  type=EBD0A0A2-B9E5-4433-87C0-68B6B72699C7' | sfdisk -a /dev/vda #/mnt/win
 
 echo ">> Форматирование разделов"
-echo 'y' | mkswap /dev/vda1 -L swap
-sleep $sleep
-echo 'y' | mkfs.ext4 /dev/vda3 -L Arch
-sleep $sleep
-echo 'y' | mkfs.fat -F32 /dev/vda2 -n EFI
-sleep $sleep
-echo 'y' | mkfs.ext4 /dev/vda4 -L home
+echo 'y' | mkfs.ext4 /dev/sda1 -L Arch
 sleep $sleep
 #echo 'y' | mkfs.ntfs -Q /dev/sda5 -L win
 
 echo ">> Подключение разделов"
-swapon /dev/vda1
-mount /dev/vda3 /mnt
-mkdir -p /mnt/boot
-mount /dev/vda2 /mnt/boot
-mkdir -p /mnt/home
-mount /dev/vda4 /mnt/home
+mount /dev/sda1 /mnt
 #mkdir -p /mnt/mnt/win
 #mount /dev/sda4 /mnt/mnt/win
 
