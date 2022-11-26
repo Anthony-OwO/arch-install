@@ -19,7 +19,7 @@ pacman -Sy sed --noconfirm
 
 echo -e "\n"
 echo '--------------------------------------------------'
-echo '|             Форматирование диска               |'
+echo '|            disk format                         |'
 echo '--------------------------------------------------'
 
 # Типы дисков 
@@ -32,10 +32,10 @@ echo '--------------------------------------------------'
 #   b EBD0A0A2-B9E5-4433-87C0-68B6B72699C7 Microsoft
 #   5                                      Расширенный раздел для MBR
 
-echo ">> Разметка диска"
+echo ">> rasmetka diska"
 echo 'label: dos' | sfdisk /dev/sda
 sleep $sleep
-echo 'size=100%G,   type=83' | sfdisk -a /dev/sda #/
+echo 'size=9G,   type=83' | sfdisk -a /dev/sda #/
 sleep $sleep
 #echo 'size=60G,  type=EBD0A0A2-B9E5-4433-87C0-68B6B72699C7' | sfdisk -a /dev/vda #/mnt/win
 
@@ -52,14 +52,14 @@ mount /dev/sda1 /mnt
 sleep $sleep
 
 echo '--------------------------------------------------'
-echo '|             Установка Arch Linux               |'
+echo '|             install Arch Linux                 |'
 echo '--------------------------------------------------'
 
-echo '>> Установка Arch GNU'
+echo '>> install Arch GNU'
 pacstrap -i /mnt base base-devel linux linux-firmware --noconfirm
 sleep $sleep
 
-echo '>> Hacтройка точек монтирования'
+echo '>> nastroika montirovannya'
 genfstab -L -p -P /mnt >> /mnt/etc/fstab
 
 mkdir -p /mnt/home/$username/
@@ -71,7 +71,8 @@ arch-chroot /mnt sh -c "$(cat chroot)" $username $hostname $pass
 sleep $sleep
 
 echo '--------------------------------------------------'
-echo '|                 Перезагрузка                   |'
+echo '|                 reboot                         |'
 echo '--------------------------------------------------'
+echo '>> reboot'
 umount -R /mnt/
 reboot
